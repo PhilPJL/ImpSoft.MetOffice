@@ -25,9 +25,9 @@ A simple wrapper for the Met Office Data Hub API for .NET Core and .NET Standard
 	// and exclude parameter meta data (which are returned by default)
 	var forecastThreeHourly = await client.GetThreeHourlyForecastAsync(latitude, longitude, true, false);
 	
-	// get a parameter's meta data
+	// get a parameter's meta-data
 	var dayProbabilityOfHailDetails = forecastDaily.Parameters.GetDetails(DailyDataPoint.DayProbabilityOfHailKey);
-	var precipitationRateDetails = forecastDaily.Parameters.GetDetails(HourlyDataPoint.PrecipitationRateKey);
+	var precipitationRateDetails = forecastHourly.Parameters.GetDetails(HourlyDataPoint.PrecipitationRateKey);
 	
 	...
   }
