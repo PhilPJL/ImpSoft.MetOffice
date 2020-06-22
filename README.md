@@ -15,18 +15,19 @@ A simple wrapper for the Met Office Data Hub API for .NET Core and .NET Standard
 	var longitude = 0.107120m;
 
 	// get the daily forecast for the specified location (Histon, UK)
-	var forecast = await client.GetDailyForecastAsync(latitude, longitude);
+	var forecastDaily = await client.GetDailyForecastAsync(latitude, longitude);
 
-	// get the daily forecast for the specified location (Histon, UK) and retrieve location details 
+	// get the hourly forecast for the specified location (Histon, UK) and retrieve location details 
 	// (which are not returned by default)
-	var forecast1 = await client.GetDailyForecastAsync(latitude, longitude, true);
+	var forecastHourly = await client.GetHourlyForecastAsync(latitude, longitude, true);
 
 	// get the daily forecast for the specified location (Histon, UK), retrieve location details 
 	// and exclude parameter meta data (which are returned by default)
-	var forecast2 = await client.GetDailyForecastAsync(latitude, longitude, true, false);
+	var forecastThreeHourly = await client.GetThreeHourlyForecastAsync(latitude, longitude, true, false);
 	
 	// get a parameter's meta data
-	var parameterDetails = forecast.Parameters.GetDetails(DailyDataPoint.DayProbabilityOfHailKey);
+	var dayProbabilityOfHailDetails = forecastDaily.Parameters.GetDetails(DailyDataPoint.DayProbabilityOfHailKey);
+	var precipitationRateDetails = forecastDaily.Parameters.GetDetails(HourlyDataPoint.PrecipitationRateKey);
 	
 	...
   }
