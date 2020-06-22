@@ -4,7 +4,7 @@ A simple wrapper for the Met Office Data Hub API for .NET Core and .NET Standard
 # Usage
 ```C#
 
-  async Task SomeMethod()
+  async Task SomeMethodAsync()
   {
   	var clientId = "<my client id>";
 	var clientSecret = "<my client secret>";
