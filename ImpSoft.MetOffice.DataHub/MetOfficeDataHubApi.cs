@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using ImpSoft.MetOffice.DataHub.Properties;
+using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
@@ -19,8 +21,11 @@ namespace ImpSoft.MetOffice.DataHub
 
             using (var handler = new HttpClientHandler())
             {
+#if NETCOREAPP
+                handler.AutomaticDecompression = DecompressionMethods.All;
+#else
                 handler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-
+#endif
                 using (var client = new HttpClient(handler))
                 {
                     client.BaseAddress = uri;
@@ -32,13 +37,12 @@ namespace ImpSoft.MetOffice.DataHub
                     {
                         if (!httpResponse.IsSuccessStatusCode)
                         {
-                            // TODO: make this a helper method
-                            if (caller?.EndsWith("Async", StringComparison.OrdinalIgnoreCase) ?? false)
-                            {
-                                caller = caller.Substring(0, caller.Length - 5);
-                            }
+                            caller = caller.StripAsyncSuffix();
 
-                            throw new UriGetException($"{caller ?? "Unknown method"}: the HTTP request failed with status code={httpResponse.StatusCode} and reason='{httpResponse.ReasonPhrase}'.", uri);
+                            var message = string.Format(CultureInfo.CurrentCulture,
+                                Resources.HttpRequestFailed, caller ?? Resources.UnknownMethod, httpResponse.StatusCode, httpResponse.ReasonPhrase);
+
+                            throw new UriGetException(message, uri);
                         }
 
                         return JsonConvert.DeserializeObject<TResponse>(await httpResponse.Content.ReadAsStringAsync());
@@ -57,7 +61,7 @@ namespace ImpSoft.MetOffice.DataHub
         {
             if (latitude < -85m || latitude > 85m)
             {
-                throw new ArgumentOutOfRangeException(nameof(latitude), $"Latitude must be in the range [-85, 85].");
+                throw new ArgumentOutOfRangeException(nameof(latitude), latitude, Resources.LatitudeError);
             }
         }
 
@@ -65,7 +69,7 @@ namespace ImpSoft.MetOffice.DataHub
         {
             if (longitude < -180m || longitude > 180m)
             {
-                throw new ArgumentOutOfRangeException(nameof(longitude), $"Longitude must be in the range [-180, 180].");
+                throw new ArgumentOutOfRangeException(nameof(longitude), longitude, Resources.LongitudeError);
             }
         }
 

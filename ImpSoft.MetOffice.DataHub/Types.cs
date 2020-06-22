@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ImpSoft.MetOffice.DataHub.Properties;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.Serialization;
 
@@ -22,11 +24,23 @@ namespace ImpSoft.MetOffice.DataHub
     {
         internal SimpleForecast(Forecast<TDataPoint> forecast)
         {
-            // TODO: validation and throw 
+            int count = forecast?.Features.Count() ?? 0;
+
+            if (count > 1 || count == 0)
+            {
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Resources.SingleFeatureError, count), nameof(forecast));
+            }
+
+            count = forecast?.Parameters.Count() ?? 0;
+
+            if (count > 1)
+            {
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Resources.SingleParameterCollectionError, count), nameof(forecast));
+            }
 
             Type = forecast.Type;
             Feature = forecast.Features.Single();
-            Parameters = forecast.Parameters.Single();
+            Parameters = forecast.Parameters?.Single() ?? new Dictionary<string, ParameterDetails>();
         }
 
         [DataMember(Name = "type")]
@@ -299,127 +313,169 @@ namespace ImpSoft.MetOffice.DataHub
     [DataContract(Name = "")]
     public class DailyDataPoint : DataPoint
     {
-        [DataMember(Name = "midday10MWindSpeed")]
+        public const string Midday10mWindSpeedKey = "midday10MWindSpeed";
+        public const string Midnight10mWindSpeedKey = "midnight10MWindSpeed";
+        public const string Midday10mWindDirectionKey = "midday10MWindDirection";
+        public const string Midnight10mWindDirectionKey = "midnight10MWindDirection";
+        public const string Midday10mWindGustKey = "midday10MWindGust";
+        public const string Midnight10mWindGustKey = "midnight10MWindGust";
+        public const string MiddayVisibilityKey = "middayVisibility";
+        public const string MidnightVisibilityKey = "midnightVisibility";
+        public const string MiddayRelativeHumidityKey = "middayRelativeHumidity";
+        public const string MidnightRelativeHumidityKey = "midnightRelativeHumidity";
+        public const string MiddayMeanSeaLevelPressureKey = "middayMslp";
+        public const string MidnightMeanSeaLevelPressureKey = "midnightMslp";
+        public const string MaxUVIndexKey = "maxUvIndex";
+        public const string DaySignificantWeatherCodeKey = "daySignificantWeatherCode";
+        public const string NightSignificantWeatherCodeKey = "nightSignificantWeatherCode";
+        public const string DayMaxScreenTemperatureKey = "dayMaxScreenTemperature";
+        public const string NightMinScreenTemperatureKey = "nightMinScreenTemperature";
+        public const string DayUpperBoundMaxTemperatureKey = "dayUpperBoundMaxTemp";
+        public const string NightUpperBoundMinTemperatureKey = "nightUpperBoundMinTemp";
+        public const string DayLowerBoundMaxTemperatureKey = "dayLowerBoundMaxTemp";
+        public const string NightLowerBoundMinTemperatureKey = "nightLowerBoundMinTemp";
+        public const string DayMaxFeelsLikeTemperatureKey = "dayMaxFeelsLikeTemp";
+        public const string NightMinFeelsLikeTemperatureKey = "nightMinFeelsLikeTemp";
+        public const string DayUpperBoundMaxFeelsLikeTemperatureKey = "dayUpperBoundMaxFeelsLikeTemp";
+        public const string NightUpperBoundMinFeelsLikeTemperatureKey = "nightUpperBoundMinFeelsLikeTemp";
+        public const string DayLowerBoundMaxFeelsLikeTemperatureKey = "dayLowerBoundMaxFeelsLikeTemp";
+        public const string NightLowerBoundMinFeelsLikeTemperatureKey = "nightLowerBoundMinFeelsLikeTemp";
+        public const string DayProbabilityOfPrecipitationKey = "dayProbabilityOfPrecipitation";
+        public const string NightProbabilityOfPrecipitationKey = "nightProbabilityOfPrecipitation";
+        public const string DayProbabilityOfSnowKey = "dayProbabilityOfSnow";
+        public const string NightProbabilityOfSnowKey = "nightProbabilityOfSnow";
+        public const string DayProbabilityOfHeavySnowKey = "dayProbabilityOfHeavySnow";
+        public const string NightProbabilityOfHeavySnowKey = "nightProbabilityOfHeavySnow";
+        public const string DayProbabilityOfRainKey = "dayProbabilityOfRain";
+        public const string NightProbabilityOfRainKey = "nightProbabilityOfRain";
+        public const string DayProbabilityOfHeavyRainKey = "dayProbabilityOfHeavyRain";
+        public const string NightProbabilityOfHeavyRainKey = "nightProbabilityOfHeavyRain";
+        public const string DayProbabilityOfHailKey = "dayProbabilityOfHail";
+        public const string NightProbabilityOfHailKey = "nightProbabilityOfHail";
+        public const string DayProbabilityOfAtmosphericsKey = "dayProbabilityOfSferics";
+        public const string NightProbabilityOfAtmosphericsKey = "nightProbabilityOfSferics";
+
+        [DataMember(Name = Midday10mWindSpeedKey)]
         public decimal Midday10mWindSpeed { get; set; }
 
-        [DataMember(Name = "midnight10MWindSpeed")]
+        [DataMember(Name = Midnight10mWindSpeedKey)]
         public decimal Midnight10mWindSpeed { get; set; }
 
-        [DataMember(Name = "midday10MWindDirection")]
+        [DataMember(Name = Midday10mWindDirectionKey)]
         public int Midday10mWindDirection { get; set; }
 
-        [DataMember(Name = "midnight10MWindDirection")]
+        [DataMember(Name = Midnight10mWindDirectionKey)]
         public int Midnight10mWindDirection { get; set; }
 
-        [DataMember(Name = "midday10MWindGust")]
+        [DataMember(Name = Midday10mWindGustKey)]
         public decimal Midday10mWindGust { get; set; }
 
-        [DataMember(Name = "midnight10MWindGust")]
+        [DataMember(Name = Midnight10mWindGustKey)]
         public decimal Midnight10mWindGust { get; set; }
 
-        [DataMember(Name = "middayVisibility")]
+        [DataMember(Name = MiddayVisibilityKey)]
         public int MiddayVisibility { get; set; }
 
-        [DataMember(Name = "midnightVisibility")]
+        [DataMember(Name = MidnightVisibilityKey)]
         public int MidnightVisibility { get; set; }
 
-        [DataMember(Name = "middayRelativeHumidity")]
+        [DataMember(Name = MiddayRelativeHumidityKey)]
         public decimal MiddayRelativeHumidity { get; set; }
 
-        [DataMember(Name = "midnightRelativeHumidity")]
+        [DataMember(Name = MidnightRelativeHumidityKey)]
         public decimal MidnightRelativeHumidity { get; set; }
 
-        [DataMember(Name = "middayMslp")]
+        [DataMember(Name = MiddayMeanSeaLevelPressureKey)]
         public int MiddayMeanSeaLevelPressure { get; set; }
 
-        [DataMember(Name = "midnightMslp")]
+        [DataMember(Name = MidnightMeanSeaLevelPressureKey)]
         public int MidnightMeanSeaLevelPressure { get; set; }
 
-        [DataMember(Name = "maxUvIndex")]
+        [DataMember(Name = MaxUVIndexKey)]
         public int MaxUVIndex { get; set; }
 
-        [DataMember(Name = "daySignificantWeatherCode")]
+        [DataMember(Name = DaySignificantWeatherCodeKey)]
         public int DaySignificantWeatherCode { get; set; }
 
-        [DataMember(Name = "nightSignificantWeatherCode")]
+        [DataMember(Name = NightSignificantWeatherCodeKey)]
         public int NightSignificantWeatherCode { get; set; }
 
-        [DataMember(Name = "dayMaxScreenTemperature")]
+        [DataMember(Name = DayMaxScreenTemperatureKey)]
         public decimal DayMaxScreenTemperature { get; set; }
 
-        [DataMember(Name = "nightMinScreenTemperature")]
+        [DataMember(Name = NightMinScreenTemperatureKey)]
         public decimal NightMinScreenTemperature { get; set; }
 
-        [DataMember(Name = "dayUpperBoundMaxTemp")]
+        [DataMember(Name = DayUpperBoundMaxTemperatureKey)]
         public decimal DayUpperBoundMaxTemperature { get; set; }
 
-        [DataMember(Name = "nightUpperBoundMinTemp")]
+        [DataMember(Name = NightUpperBoundMinTemperatureKey)]
         public decimal NightUpperBoundMinTemperature { get; set; }
 
-        [DataMember(Name = "dayLowerBoundMaxTemp")]
+        [DataMember(Name = DayLowerBoundMaxTemperatureKey)]
         public decimal DayLowerBoundMaxTemperature { get; set; }
 
-        [DataMember(Name = "nightLowerBoundMinTemp")]
+        [DataMember(Name = NightLowerBoundMinTemperatureKey)]
         public decimal NightLowerBoundMinTemperature { get; set; }
 
-        [DataMember(Name = "dayMaxFeelsLikeTemp")]
+        [DataMember(Name = DayMaxFeelsLikeTemperatureKey)]
         public decimal DayMaxFeelsLikeTemperature { get; set; }
 
-        [DataMember(Name = "nightMinFeelsLikeTemp")]
+        [DataMember(Name = NightMinFeelsLikeTemperatureKey)]
         public decimal NightMinFeelsLikeTemperature { get; set; }
 
-        [DataMember(Name = "dayUpperBoundMaxFeelsLikeTemp")]
+        [DataMember(Name = DayUpperBoundMaxFeelsLikeTemperatureKey)]
         public decimal DayUpperBoundMaxFeelsLikeTemperature { get; set; }
 
-        [DataMember(Name = "nightUpperBoundMinFeelsLikeTemp")]
+        [DataMember(Name = NightUpperBoundMinFeelsLikeTemperatureKey)]
         public decimal NightUpperBoundMinFeelsLikeTemperature { get; set; }
 
-        [DataMember(Name = "dayLowerBoundMaxFeelsLikeTemp")]
+        [DataMember(Name = DayLowerBoundMaxFeelsLikeTemperatureKey)]
         public decimal DayLowerBoundMaxFeelsLikeTemperature { get; set; }
 
-        [DataMember(Name = "nightLowerBoundMinFeelsLikeTemp")]
+        [DataMember(Name = NightLowerBoundMinFeelsLikeTemperatureKey)]
         public decimal NightLowerBoundMinFeelsLikeTemperature { get; set; }
 
-        [DataMember(Name = "dayProbabilityOfPrecipitation")]
+        [DataMember(Name = DayProbabilityOfPrecipitationKey)]
         public int DayProbabilityOfPrecipitation { get; set; }
 
-        [DataMember(Name = "nightProbabilityOfPrecipitation")]
+        [DataMember(Name = NightProbabilityOfPrecipitationKey)]
         public int NightProbabilityOfPrecipitation { get; set; }
 
-        [DataMember(Name = "dayProbabilityOfSnow")]
+        [DataMember(Name = DayProbabilityOfSnowKey)]
         public int DayProbabilityOfSnow { get; set; }
 
-        [DataMember(Name = "nightProbabilityOfSnow")]
+        [DataMember(Name = NightProbabilityOfSnowKey)]
         public int NightProbabilityOfSnow { get; set; }
 
-        [DataMember(Name = "dayProbabilityOfHeavySnow")]
+        [DataMember(Name = DayProbabilityOfHeavySnowKey)]
         public int DayProbabilityOfHeavySnow { get; set; }
 
-        [DataMember(Name = "nightProbabilityOfHeavySnow")]
+        [DataMember(Name = NightProbabilityOfHeavySnowKey)]
         public int NightProbabilityOfHeavySnow { get; set; }
 
-        [DataMember(Name = "dayProbabilityOfRain")]
+        [DataMember(Name = DayProbabilityOfRainKey)]
         public int DayProbabilityOfRain { get; set; }
 
-        [DataMember(Name = "nightProbabilityOfRain")]
+        [DataMember(Name = NightProbabilityOfRainKey)]
         public int NightProbabilityOfRain { get; set; }
 
-        [DataMember(Name = "dayProbabilityOfHeavyRain")]
+        [DataMember(Name = DayProbabilityOfHeavyRainKey)]
         public int DayProbabilityOfHeavyRain { get; set; }
 
-        [DataMember(Name = "nightProbabilityOfHeavyRain")]
+        [DataMember(Name = NightProbabilityOfHeavyRainKey)]
         public int NightProbabilityOfHeavyRain { get; set; }
 
-        [DataMember(Name = "dayProbabilityOfHail")]
+        [DataMember(Name = DayProbabilityOfHailKey)]
         public int DayProbabilityOfHail { get; set; }
 
-        [DataMember(Name = "nightProbabilityOfHail")]
+        [DataMember(Name = NightProbabilityOfHailKey)]
         public int NightProbabilityOfHail { get; set; }
 
-        [DataMember(Name = "dayProbabilityOfSferics")]
+        [DataMember(Name = DayProbabilityOfAtmosphericsKey)]
         public int DayProbabilityOfAtmospherics { get; set; }
 
-        [DataMember(Name = "nightProbabilityOfSferics")]
+        [DataMember(Name = NightProbabilityOfAtmosphericsKey)]
         public int NightProbabilityOfAtmospherics { get; set; }
     }
 }
