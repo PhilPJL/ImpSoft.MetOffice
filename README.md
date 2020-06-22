@@ -1,2 +1,2 @@
 # ImpSoft.MetOffice
-Met Office API wrappers
+A simple wrapper for the Met Office Data Hub API.
