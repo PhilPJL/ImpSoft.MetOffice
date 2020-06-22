@@ -8,6 +8,7 @@
     <Company>ImpSoft</Company>
     <Product>Met Office Data Hub API wrapper</Product>
     <Description>Wrapper for the Met Office Data Hub weather forecast API.</Description>
+    <RepositoryUrl>https://github.com/PhilPJL/ImpSoft.MetOffice</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
