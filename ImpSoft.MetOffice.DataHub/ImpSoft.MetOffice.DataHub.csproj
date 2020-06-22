@@ -3,11 +3,11 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netcoreapp3.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.0-preview7</Version>
+    <Version>1.0.0-preview9</Version>
     <Authors>Philip Lee</Authors>
     <Company>ImpSoft</Company>
     <Product>Met Office Data Hub API wrapper</Product>
-    <Description>Wrapper for the Met Office Data Hub weather forecast API.</Description>
+    <Description>Client for the Met Office Data Hub weather forecast API.</Description>
     <RepositoryUrl>https://github.com/PhilPJL/ImpSoft.MetOffice</RepositoryUrl>
   </PropertyGroup>
 

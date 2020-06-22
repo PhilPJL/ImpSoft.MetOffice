@@ -7,6 +7,12 @@ namespace ImpSoft.MetOffice.DataHub
 {
     public static class Extensions
     {
+        /// <summary>
+        /// Retrieves a ParameterDetails instance from the dictionary given the key.
+        /// </summary>
+        /// <param name="details">A dictionary of parameter key to ParameterDetails</param>
+        /// <param name="key">The parameter key</param>
+        /// <returns>ParameterDetails</returns>
         public static ParameterDetails GetDetails(this Dictionary<string, ParameterDetails> details, string key)
         {
             if (details.ContainsKey(key))
@@ -17,7 +23,7 @@ namespace ImpSoft.MetOffice.DataHub
             throw new ParameterDetailsKeyException(string.Format(CultureInfo.CurrentCulture, Resources.ParameterKeyError, key));
         }
 
-        public static string StripAsyncSuffix(this string name)
+        internal static string StripAsyncSuffix(this string name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {

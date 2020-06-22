@@ -73,6 +73,14 @@ namespace ImpSoft.MetOffice.DataHub
             }
         }
 
+        /// <summary>
+        /// Retrieve daily forecast data, and optionally metadata for each of the returned values.
+        /// </summary>
+        /// <param name="latitude">The latitude in the range [-85, 85].</param>
+        /// <param name="longitude">The longitude in the range [-180, 180].</param>
+        /// <param name="includeLocationName">Optionally request the location name is returned.  The location name won't be returned by default.</param>
+        /// <param name="excludeParameterMetadata">Optionally request that parameter metadata is not returned.  Parameter metadata is returned by default.</param>
+        /// <returns></returns>
         public async Task<SimpleForecast<DailyDataPoint>> GetDailyForecastAsync(decimal latitude, decimal longitude, bool? includeLocationName = null, bool? excludeParameterMetadata = null)
         {
             AssertValidLatitude(latitude);
@@ -87,6 +95,14 @@ namespace ImpSoft.MetOffice.DataHub
             return new SimpleForecast<DailyDataPoint>(await GetResponseAsync<Forecast<DailyDataPoint>>(uri));
         }
 
+        /// <summary>
+        /// Retrieve hourly forecast data, and optionally metadata for each of the returned values.
+        /// </summary>
+        /// <param name="latitude">The latitude in the range [-85, 85].</param>
+        /// <param name="longitude">The longitude in the range [-180, 180].</param>
+        /// <param name="includeLocationName">Optionally request the location name is returned.  The location name won't be returned by default.</param>
+        /// <param name="excludeParameterMetadata">Optionally request that parameter metadata is not returned.  Parameter metadata is returned by default.</param>
+        /// <returns></returns>
         public async Task<SimpleForecast<HourlyDataPoint>> GetHourlyForecastAsync(decimal latitude, decimal longitude, bool? includeLocationName = null, bool? excludeParameterMetadata = null)
         {
             AssertValidLatitude(latitude);
@@ -101,6 +117,14 @@ namespace ImpSoft.MetOffice.DataHub
             return new SimpleForecast<HourlyDataPoint>(await GetResponseAsync<Forecast<HourlyDataPoint>>(uri));
         }
 
+        /// <summary>
+        /// Retrieve three hourly forecast data, and optionally metadata for each of the returned values.
+        /// </summary>
+        /// <param name="latitude">The latitude in the range [-85, 85].</param>
+        /// <param name="longitude">The longitude in the range [-180, 180].</param>
+        /// <param name="includeLocationName">Optionally request the location name is returned.  The location name won't be returned by default.</param>
+        /// <param name="excludeParameterMetadata">Optionally request that parameter metadata is not returned.  Parameter metadata is returned by default.</param>
+        /// <returns></returns>
         public async Task<SimpleForecast<ThreeHourlyDataPoint>> GetThreeHourlyForecastAsync(decimal latitude, decimal longitude, bool? includeLocationName = null, bool? excludeParameterMetadata = null)
         {
             AssertValidLatitude(latitude);
