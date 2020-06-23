@@ -24,6 +24,5 @@ jobs:
 #    - name: Test
 #      run: dotnet test --no-restore --verbosity normal
     - name: Publish
-    - uses: actions/checkout@v2
-      run: dotnet nuget push "$GITHUB_WORKSPACE/ImpSoft.MetOffice.DataHub/bin/Release/ImpSoft.MetOffice.DataHub.*.nupkg" -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+      run: dotnet nuget push $GITHUB_WORKSPACE/ImpSoft.MetOffice.DataHub/bin/Release/ImpSoft.MetOffice.DataHub.*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
 
