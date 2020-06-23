@@ -26,9 +26,14 @@ A simple .NET Core and .NET Standard client for the Met Office Data Hub API.
 	var forecastThreeHourly = await client.GetThreeHourlyForecastAsync(latitude, longitude, true, false);
 	
 	// get a parameter's meta-data
-	var dayProbabilityOfHailDetails = forecastDaily.Parameters.GetDetails(DailyDataPoint.DayProbabilityOfHailKey);
-	var precipitationRateDetails = forecastHourly.Parameters.GetDetails(HourlyDataPoint.PrecipitationRateKey);
+	var dayProbabilityOfHailDetails = forecastDaily
+		.Parameters.GetDetails(DailyDataPoint.DayProbabilityOfHailKey);
+	var precipitationRateDetails = forecastHourly
+		.Parameters.GetDetails(HourlyDataPoint.PrecipitationRateKey);
 	
 	...
   }
 ```
+
+See https://metoffice.apiconnect.ibmcloud.com/metoffice/production/api for more information on the Met Office API.
+
