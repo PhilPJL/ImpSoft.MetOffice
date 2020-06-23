@@ -14,9 +14,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Show workflow name
-      run: echo $GITHUB_WORKFLOW
+      run: echo ${{ github.workflow }}
     - name: Show workspace
-      run: echo $GITHUB_WORKSPACE
+      run: echo ${{ github.workspace }}
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
@@ -28,5 +28,5 @@ jobs:
 #    - name: Test
 #      run: dotnet test --no-restore --verbosity normal
     - name: Publish
-      run: dotnet nuget push $GITHUB_WORKSPACE/ImpSoft.MetOffice.DataHub/bin/Release/ImpSoft.MetOffice.DataHub.*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+      run: dotnet nuget push ${{ github.workspace }}/ImpSoft.MetOffice.DataHub/bin/Release/ImpSoft.MetOffice.DataHub.*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
 
