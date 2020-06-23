@@ -3,17 +3,21 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netcoreapp3.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.0-preview11</Version>
+    <Version>1.0.0-preview12</Version>
     <Authors>Philip Lee</Authors>
     <Company>ImpSoft</Company>
     <Product>Met Office Data Hub API wrapper</Product>
     <Description>Client for the Met Office Data Hub weather forecast API.</Description>
     <RepositoryUrl>https://github.com/PhilPJL/ImpSoft.MetOffice</RepositoryUrl>
     <PackageProjectUrl>https://github.com/PhilPJL/ImpSoft.MetOffice</PackageProjectUrl>
-    <RepositoryType>Git</RepositoryType>
-    <PackageTags>Weather, Forecast, Met-Office</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Weather-Api, Weather-Forecast, Met-Office</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
-    <PackageLicenseFile>License.txt</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>Preview release</PackageReleaseNotes>
+    <Copyright>Copyright © Philip Lee 2020</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
@@ -37,7 +41,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="License.txt">
+    <None Include="..\LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="icon.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
