@@ -9,7 +9,7 @@ A simple .NET Core and .NET Standard client for the Met Office Data Hub API.
   	var clientId = "<my client id>";
 	var clientSecret = "<my client secret>";
 	
-  	var client = MetOfficeDataHubApiFactory.Create(clientId, clientSecret);
+  	var client = DataHubClientFactory.Create(clientId, clientSecret);
 
 	var latitude = 52.239980m;
 	var longitude = 0.107120m;
