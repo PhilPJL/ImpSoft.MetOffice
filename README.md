@@ -37,3 +37,4 @@ A simple .NET Core and .NET Standard client for the Met Office Data Hub API.
 
 See https://metoffice.apiconnect.ibmcloud.com/metoffice/production/api for more information on the Met Office API.
 
+Uses icons made by <a href="https://www.flaticon.com/authors/flat-icons" title="Flat Icons">Flat Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
