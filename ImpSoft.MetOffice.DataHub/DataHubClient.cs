@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ImpSoft.MetOffice.DataHub
 {
-    internal class MetOfficeDataHubApi : IMetOfficeDataHubApi
+    internal class DataHubClient : IDataHubClient
     {
         private string ClientId { get; }
         private string ClientSecret { get; }
@@ -51,7 +51,7 @@ namespace ImpSoft.MetOffice.DataHub
             }
         }
 
-        internal MetOfficeDataHubApi(string clientId, string clientSecret)
+        internal DataHubClient(string clientId, string clientSecret)
         {
             ClientId = clientId;
             ClientSecret = clientSecret;
