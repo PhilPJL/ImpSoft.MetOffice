@@ -24,7 +24,7 @@ namespace ImpSoft.MetOffice.DataHub
     {
         internal SimpleForecast(Forecast<TDataPoint> forecast)
         {
-            int count = forecast?.Features.Count() ?? 0;
+            var count = forecast?.Features.Count() ?? 0;
 
             if (count > 1 || count == 0)
             {
@@ -228,7 +228,7 @@ namespace ImpSoft.MetOffice.DataHub
         public const string MinScreenAirTemperatureKey = "minScreenAirTemp";
         public const string Max10mWindGustSpeedKey = "max10mWindGust";
         public const string SignificantWeatherCodeKey = "significantWeatherCode";
-        public const string TotalPrecipAmountKey = "totalPrecipAmount";
+        public const string TotalPrecipitationAmountKey = "totalPrecipAmount";
         public const string TotalSnowAmountKey = "totalSnowAmount";
         public const string WindSpeed10mKey = "windSpeed10m";
         public const string WindDirectionFrom10mKey = "windDirectionFrom10m";
@@ -258,8 +258,8 @@ namespace ImpSoft.MetOffice.DataHub
         [DataMember(Name = SignificantWeatherCodeKey)]
         public int SignificantWeatherCode { get; set; }
 
-        [DataMember(Name = TotalPrecipAmountKey)]
-        public decimal TotalPrecipAmount { get; set; }
+        [DataMember(Name = TotalPrecipitationAmountKey)]
+        public decimal TotalPrecipitationAmount { get; set; }
 
         [DataMember(Name = TotalSnowAmountKey)]
         public decimal TotalSnowAmount { get; set; }

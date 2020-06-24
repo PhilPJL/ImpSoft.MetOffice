@@ -30,12 +30,8 @@ namespace ImpSoft.MetOffice.DataHub
                 return name;
             }
 
-            if (name.EndsWith("Async", StringComparison.OrdinalIgnoreCase))
-            {
-                return name.Substring(0, name.Length - 5);
-            }
-
-            return name;
+            return name.EndsWith("Async", StringComparison.OrdinalIgnoreCase) 
+                ? name.Substring(0, name.Length - 5) : name;
         }
     }
 }

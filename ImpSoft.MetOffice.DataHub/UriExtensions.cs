@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace ImpSoft.MetOffice.DataHub
 {
@@ -11,12 +12,12 @@ namespace ImpSoft.MetOffice.DataHub
 
         public static Uri AddQueryParam(this Uri uri, string name, int value)
         {
-            return uri.AddQueryParam(name, value.ToString());
+            return uri.AddQueryParam(name, value.ToString(CultureInfo.InvariantCulture));
         }
 
         public static Uri AddQueryParam(this Uri uri, string name, decimal value)
         {
-            return uri.AddQueryParam(name, value.ToString());
+            return uri.AddQueryParam(name, value.ToString(CultureInfo.InvariantCulture));
         }
 
         public static Uri AddQueryParam(this Uri uri, string name, string value)

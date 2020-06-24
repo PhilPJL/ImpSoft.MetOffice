@@ -57,7 +57,7 @@ namespace ImpSoft.MetOffice.DataHub
             ClientSecret = clientSecret;
         }
 
-        private void AssertValidLatitude(decimal latitude)
+        private static void AssertValidLatitude(decimal latitude)
         {
             if (latitude < -85m || latitude > 85m)
             {
@@ -65,7 +65,7 @@ namespace ImpSoft.MetOffice.DataHub
             }
         }
 
-        private void AssertValidLongitude(decimal longitude)
+        private static void AssertValidLongitude(decimal longitude)
         {
             if (longitude < -180m || longitude > 180m)
             {
