@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
-using System.Globalization;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
@@ -37,12 +36,7 @@ namespace ImpSoft.MetOffice.DataHub
                     {
                         if (!httpResponse.IsSuccessStatusCode)
                         {
-                            caller = caller.StripAsyncSuffix();
-
-                            var message = string.Format(CultureInfo.CurrentCulture,
-                                Resources.HttpRequestFailed, caller ?? Resources.UnknownMethod, httpResponse.StatusCode, httpResponse.ReasonPhrase);
-
-                            throw new UriGetException(message, uri);
+                            throw new UriGetException(caller, httpResponse, uri);
                         }
 
                         return JsonConvert.DeserializeObject<TResponse>(await httpResponse.Content.ReadAsStringAsync());
