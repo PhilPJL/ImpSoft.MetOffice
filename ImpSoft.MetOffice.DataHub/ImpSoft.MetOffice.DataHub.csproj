@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netcoreapp3.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.1.0</Version>
+    <Version>2.0.0-preview1</Version>
     <Authors>Philip Lee</Authors>
     <Company>ImpSoft</Company>
     <Product>Met Office Data Hub API wrapper</Product>
@@ -16,10 +16,9 @@
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageIcon>icon.png</PackageIcon>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>Second release - minor changes</PackageReleaseNotes>
+    <PackageReleaseNotes>Second release - minor breaking changes</PackageReleaseNotes>
     <Copyright>Copyright © Philip Lee 2020</Copyright>
-    <PackageVersion>1.1.0-preview1</PackageVersion>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.*</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
