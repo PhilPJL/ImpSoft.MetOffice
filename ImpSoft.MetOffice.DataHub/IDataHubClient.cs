@@ -2,7 +2,7 @@
 
 namespace ImpSoft.MetOffice.DataHub
 {
-    public interface IMetOfficeDataHubApi
+    public interface IDataHubClient
     {
         /// <summary>
         /// Retrieve hourly forecast data, and optionally metadata for each of the returned values.
