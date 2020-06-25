@@ -129,6 +129,12 @@
   <data name="ParameterKeyError" xml:space="preserve">
     <value>Parameter details not found for key='{0}'.</value>
   </data>
+  <data name="ParameterMustNotBeNullOrEmpty" xml:space="preserve">
+    <value>The parameter must not be null or empty.</value>
+  </data>
+  <data name="ParameterMustNotBeNullOrWhitespace" xml:space="preserve">
+    <value>"The parameter must not be null or whitespace.</value>
+  </data>
   <data name="SingleFeatureError" xml:space="preserve">
     <value>Only forecasts with a single 'Feature' are supported. The forecast contains {0} features.</value>
   </data>

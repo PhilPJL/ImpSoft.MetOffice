@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using ImpSoft.MetOffice.DataHub.Properties;
+using JetBrains.Annotations;
 using System;
 
 namespace ImpSoft.MetOffice.DataHub
@@ -7,12 +8,10 @@ namespace ImpSoft.MetOffice.DataHub
     {
         [ContractAnnotation("halt <= paramValue : null")]
         [AssertionMethod]
-        public static void IsNotNull<T>([NotNull, NoEnumeration] T paramValue, [InvokerParameterName] string paramName) where T : class
+        public static void IsNotNull<T>([NotNull][NoEnumeration] T paramValue, [InvokerParameterName] string paramName)
+            where T : class
         {
-            if (paramValue == null)
-            {
-                throw new ArgumentNullException(paramName);
-            }
+            if (paramValue == null) throw new ArgumentNullException(paramName);
         }
 
         [ContractAnnotation("halt <= paramValue : null")]
@@ -20,9 +19,7 @@ namespace ImpSoft.MetOffice.DataHub
         public static void IsNotNullOrEmpty([NotNull] string paramValue, [InvokerParameterName] string paramName)
         {
             if (string.IsNullOrEmpty(paramValue))
-            {
-                throw new ArgumentException("The parameter must not be null or empty.", paramName);
-            }
+                throw new ArgumentException(Resources.ParameterMustNotBeNullOrEmpty, paramName);
         }
 
         [ContractAnnotation("halt <= paramValue : null")]
@@ -30,10 +27,7 @@ namespace ImpSoft.MetOffice.DataHub
         public static void IsNotNullOrWhiteSpace([NotNull] string paramValue, [InvokerParameterName] string paramName)
         {
             if (string.IsNullOrWhiteSpace(paramValue))
-            {
-                throw new ArgumentException("The parameter must not be null or whitespace.", paramName);
-            }
+                throw new ArgumentException(Resources.ParameterMustNotBeNullOrWhitespace, paramName);
         }
     }
-
 }

@@ -97,6 +97,24 @@ namespace ImpSoft.MetOffice.DataHub.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The parameter must not be null or empty..
+        /// </summary>
+        internal static string ParameterMustNotBeNullOrEmpty {
+            get {
+                return ResourceManager.GetString("ParameterMustNotBeNullOrEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;The parameter must not be null or whitespace..
+        /// </summary>
+        internal static string ParameterMustNotBeNullOrWhitespace {
+            get {
+                return ResourceManager.GetString("ParameterMustNotBeNullOrWhitespace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Only forecasts with a single &apos;Feature&apos; are supported. The forecast contains {0} features..
         /// </summary>
         internal static string SingleFeatureError {
