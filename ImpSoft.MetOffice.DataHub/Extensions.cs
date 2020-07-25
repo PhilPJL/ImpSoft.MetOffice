@@ -1,5 +1,4 @@
 ﻿using ImpSoft.MetOffice.DataHub.Properties;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -21,17 +20,6 @@ namespace ImpSoft.MetOffice.DataHub
             }
 
             throw new ParameterDetailsKeyException(string.Format(CultureInfo.CurrentCulture, Resources.ParameterKeyError, key));
-        }
-
-        internal static string StripAsyncSuffix(this string name)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                return name;
-            }
-
-            return name.EndsWith("Async", StringComparison.OrdinalIgnoreCase) 
-                ? name.Substring(0, name.Length - 5) : name;
         }
     }
 }

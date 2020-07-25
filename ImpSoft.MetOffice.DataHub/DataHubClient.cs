@@ -1,61 +1,48 @@
 ﻿using ImpSoft.MetOffice.DataHub.Properties;
-using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
-using System.Globalization;
-using System.Net;
 using System.Net.Http;
-using System.Runtime.CompilerServices;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace ImpSoft.MetOffice.DataHub
 {
-    internal class DataHubClient : IDataHubClient
+    public class DataHubClient : IDataHubClient
     {
-        private string ClientId { get; }
-        private string ClientSecret { get; }
+        private HttpClient Client { get; }
+        private IDataHubClientConfiguration Configuration { get; }
 
-        private async Task<TResponse> GetResponseAsync<TResponse>(Uri uri, [CallerMemberName] string caller = null)
+        public DataHubClient(HttpClient client, IDataHubClientConfiguration configuration = null)
+        {
+            Preconditions.IsNotNull(client, nameof(client));
+
+            Client = client;
+            Configuration = configuration;
+        }
+
+        private async Task<TResponse> GetResponseAsync<TResponse>(Uri uri)
         {
             Debug.WriteLine(uri.ToString());
 
-            using (var handler = new HttpClientHandler())
+            var request = new HttpRequestMessage
             {
-#if NETCOREAPP
-                handler.AutomaticDecompression = DecompressionMethods.All;
-#else
-                handler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-#endif
-                using (var client = new HttpClient(handler))
-                {
-                    client.BaseAddress = uri;
+                Method = HttpMethod.Get,
+                RequestUri = uri
+            };
 
-                    client.DefaultRequestHeaders.Add("x-ibm-client-id", ClientId);
-                    client.DefaultRequestHeaders.Add("x-ibm-client-secret", ClientSecret);
-
-                    using (var httpResponse = await client.GetAsync(uri))
-                    {
-                        if (!httpResponse.IsSuccessStatusCode)
-                            throw new UriGetException(GetErrorMessage(httpResponse), uri);
-
-                        return JsonConvert.DeserializeObject<TResponse>(await httpResponse.Content.ReadAsStringAsync());
-                    }
-                }
+            // NOTE: if Configuration isn't provided the authorization headers must be set externally (e.g. by HttpClientHandler)
+            if (Configuration != null)
+            {
+                request.Headers.Add("x-ibm-client-id", Configuration.ClientId);
+                request.Headers.Add("x-ibm-client-secret", Configuration.ClientSecret);
             }
 
-            string GetErrorMessage(HttpResponseMessage response)
+            using (var httpResponse = await Client.SendAsync(request))
             {
-                caller = caller?.StripAsyncSuffix() ?? Resources.UnknownMethod;
+                httpResponse.EnsureSuccessStatusCode();
 
-                return string.Format(CultureInfo.CurrentCulture,
-                    Resources.HttpRequestFailed, caller, response.StatusCode, response.ReasonPhrase);
+                return await httpResponse.Content.ReadFromJsonAsync<TResponse>();
             }
-        }
-
-        internal DataHubClient(string clientId, string clientSecret)
-        {
-            ClientId = clientId;
-            ClientSecret = clientSecret;
         }
 
         private static void AssertValidLatitude(decimal latitude)

@@ -32,4 +32,10 @@ namespace ImpSoft.MetOffice.DataHub
         /// <returns></returns>
         Task<SimpleForecast<DailyDataPoint>> GetDailyForecastAsync(decimal latitude, decimal longitude, bool? includeLocationName = null, bool? excludeParameterMetadata = null);
     }
+
+    public interface IDataHubClientConfiguration
+    {
+        string ClientId { get; }
+        string ClientSecret { get; }
+    }
 }

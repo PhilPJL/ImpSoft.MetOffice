@@ -4,19 +4,19 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace ImpSoft.MetOffice.DataHub
 {
-    [DataContract(Name = "")]
     public class Forecast<TDataPoint> where TDataPoint : DataPoint
     {
-        [DataMember(Name = "type")]
+        [JsonPropertyName("type")]
         public string Type { get; set; }
 
-        [DataMember(Name = "features")]
+        [JsonPropertyName("features")]
         public IEnumerable<Feature<TDataPoint>> Features { get; set; }
 
-        [DataMember(Name = "parameters")]
+        [JsonPropertyName("parameters")]
         public IEnumerable<Dictionary<string, ParameterDetails>> Parameters { get; set; }
     }
 
@@ -43,108 +43,99 @@ namespace ImpSoft.MetOffice.DataHub
             Parameters = forecast.Parameters?.Single() ?? new Dictionary<string, ParameterDetails>();
         }
 
-        [DataMember(Name = "type")]
+        [JsonPropertyName("type")]
         public string Type { get; set; }
 
-        [DataMember(Name = "features")]
+        [JsonPropertyName("features")]
         public Feature<TDataPoint> Feature { get; set; }
 
-        [DataMember(Name = "parameters")]
+        [JsonPropertyName("parameters")]
         public Dictionary<string, ParameterDetails> Parameters { get; set; }
     }
 
-    [DataContract(Name = "")]
     public class ParameterDetails
     {
-        [DataMember(Name = "type")]
+        [JsonPropertyName("type")]
         public string Type { get; set; }
 
-        [DataMember(Name = "description")]
+        [JsonPropertyName("description")]
         public string Description { get; set; }
 
-        [DataMember(Name = "unit")]
+        [JsonPropertyName("unit")]
         public Unit Unit { get; set; }
     }
 
-    [DataContract(Name = "")]
     public class Unit
     {
-        [DataMember(Name = "label")]
+        [JsonPropertyName("label")]
         public string Label { get; set; }
 
-        [DataMember(Name = "symbol")]
+        [JsonPropertyName("symbol")]
         public Symbol Symbol { get; set; }
     }
 
-    [DataContract(Name = "")]
     public class Symbol
     {
-        [DataMember(Name = "value")]
+        [JsonPropertyName("value")]
         public string Value { get; set; }
 
-        [DataMember(Name = "type")]
+        [JsonPropertyName("type")]
         public string Type { get; set; }
     }
 
-    [DataContract(Name = "")]
     public class Feature<TDataPoint> where TDataPoint : DataPoint
     {
-        [DataMember(Name = "type")]
+        [JsonPropertyName("type")]
         public string Type { get; set; }
 
-        [DataMember(Name = "geometry")]
+        [JsonPropertyName("geometry")]
         public Point Point { get; set; }
 
-        [DataMember(Name = "properties")]
+        [JsonPropertyName("properties")]
         public Properties<TDataPoint> Properties { get; set; }
     }
 
-    [DataContract(Name = "")]
     public class Point
     {
-        [DataMember(Name = "type")]
+        [JsonPropertyName("type")]
         public string Type { get; set; }
 
-        [DataMember(Name = "coordinates")]
+        [JsonPropertyName("coordinates")]
         public IEnumerable<decimal> Coordinates { get; set; }
     }
 
-    [DataContract(Name = "")]
     public class Properties<TDataPoint> where TDataPoint : DataPoint
     {
-        [DataMember(Name = "location")]
+        [JsonPropertyName("location")]
         public Location Location { get; set; }
 
-        [DataMember(Name = "requestPointDistance")]
+        [JsonPropertyName("requestPointDistance")]
         public decimal DistanceFromRequestedPoint { get; set; }
 
-        [DataMember(Name = "modelRunDate")]
+        [JsonPropertyName("modelRunDate")]
         public DateTimeOffset ModelRunDate { get; set; }
 
-        [DataMember(Name = "timeSeries")]
+        [JsonPropertyName("timeSeries")]
         public IEnumerable<TDataPoint> DataPoints { get; set; }
     }
 
-    [DataContract(Name = "")]
     public class Location
     {
-        [DataMember(Name = "name")]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
 
-        [DataMember(Name = "licence")]
+        [JsonPropertyName("licence")]
         public string Licence { get; set; }
     }
 
-    [DataContract(Name = "")]
     public class DataPoint
     {
         private const string TimeKey = "time";
 
-        [DataMember(Name = TimeKey)]
+        [JsonPropertyName(TimeKey)]
         public DateTimeOffset Time { get; set; }
     }
 
-    [DataContract(Name = "")]
     public class HourlyDataPoint : DataPoint
     {
         public const string ScreenTemperatureKey = "screenTemperature";
@@ -166,58 +157,58 @@ namespace ImpSoft.MetOffice.DataHub
         public const string TotalSnowAmountKey = "totalSnowAmount";
         public const string ProbabilityOfPrecipitationKey = "probOfPrecipitation";
 
-        [DataMember(Name = ScreenTemperatureKey)]
+        [JsonPropertyName(ScreenTemperatureKey)]
         public decimal ScreenTemperature { get; set; }
 
-        [DataMember(Name = MaxScreenAirTemperatureKey)]
+        [JsonPropertyName(MaxScreenAirTemperatureKey)]
         public decimal MaxScreenAirTemperature { get; set; }
 
-        [DataMember(Name = MinScreenAirTemperatureKey)]
+        [JsonPropertyName(MinScreenAirTemperatureKey)]
         public decimal MinScreenAirTemperature { get; set; }
 
-        [DataMember(Name = ScreenDewPointTemperatureKey)]
+        [JsonPropertyName(ScreenDewPointTemperatureKey)]
         public decimal ScreenDewPointTemperature { get; set; }
 
-        [DataMember(Name = FeelsLikeTemperatureKey)]
+        [JsonPropertyName(FeelsLikeTemperatureKey)]
         public decimal FeelsLikeTemperature { get; set; }
 
-        [DataMember(Name = WindSpeed10mKey)]
+        [JsonPropertyName(WindSpeed10mKey)]
         public decimal WindSpeed10m { get; set; }
 
-        [DataMember(Name = WindDirectionFrom10mKey)]
+        [JsonPropertyName(WindDirectionFrom10mKey)]
         public int WindDirectionFrom10m { get; set; }
 
-        [DataMember(Name = WindGustSpeed10mKey)]
+        [JsonPropertyName(WindGustSpeed10mKey)]
         public decimal WindGustSpeed10m { get; set; }
 
-        [DataMember(Name = Max10mWindGustSpeedKey)]
+        [JsonPropertyName(Max10mWindGustSpeedKey)]
         public decimal Max10mWindGustSpeed { get; set; }
 
-        [DataMember(Name = VisibilityKey)]
+        [JsonPropertyName(VisibilityKey)]
         public decimal Visibility { get; set; }
 
-        [DataMember(Name = ScreenRelativeHumidityKey)]
+        [JsonPropertyName(ScreenRelativeHumidityKey)]
         public decimal ScreenRelativeHumidity { get; set; }
 
-        [DataMember(Name = MeanSeaLevelPressureKey)]
+        [JsonPropertyName(MeanSeaLevelPressureKey)]
         public int MeanSeaLevelPressure { get; set; }
 
-        [DataMember(Name = UVIndexKey)]
+        [JsonPropertyName(UVIndexKey)]
         public int UVIndex { get; set; }
 
-        [DataMember(Name = SignificantWeatherCodeKey)]
+        [JsonPropertyName(SignificantWeatherCodeKey)]
         public int SignificantWeatherCode { get; set; }
 
-        [DataMember(Name = PrecipitationRateKey)]
+        [JsonPropertyName(PrecipitationRateKey)]
         public decimal PrecipitationRate { get; set; }
 
-        [DataMember(Name = TotalPrecipitationAmountKey)]
+        [JsonPropertyName(TotalPrecipitationAmountKey)]
         public decimal TotalPrecipitationAmount { get; set; }
 
-        [DataMember(Name = TotalSnowAmountKey)]
+        [JsonPropertyName(TotalSnowAmountKey)]
         public decimal TotalSnowAmount { get; set; }
 
-        [DataMember(Name = ProbabilityOfPrecipitationKey)]
+        [JsonPropertyName(ProbabilityOfPrecipitationKey)]
         public int ProbabilityOfPrecipitation { get; set; }
     }
 
@@ -246,67 +237,67 @@ namespace ImpSoft.MetOffice.DataHub
         public const string ProbabilityOfHailKey = "probOfHail";
         public const string ProbabilityOfAtmosphericsKey = "probOfSferics";
 
-        [DataMember(Name = MaxScreenAirTemperatureKey)]
+        [JsonPropertyName(MaxScreenAirTemperatureKey)]
         public decimal MaxScreenAirTemperature { get; set; }
 
-        [DataMember(Name = MinScreenAirTemperatureKey)]
+        [JsonPropertyName(MinScreenAirTemperatureKey)]
         public decimal MinScreenAirTemperature { get; set; }
 
-        [DataMember(Name = Max10mWindGustSpeedKey)]
+        [JsonPropertyName(Max10mWindGustSpeedKey)]
         public decimal Max10mWindGustSpeed { get; set; }
 
-        [DataMember(Name = SignificantWeatherCodeKey)]
+        [JsonPropertyName(SignificantWeatherCodeKey)]
         public int SignificantWeatherCode { get; set; }
 
-        [DataMember(Name = TotalPrecipitationAmountKey)]
+        [JsonPropertyName(TotalPrecipitationAmountKey)]
         public decimal TotalPrecipitationAmount { get; set; }
 
-        [DataMember(Name = TotalSnowAmountKey)]
+        [JsonPropertyName(TotalSnowAmountKey)]
         public decimal TotalSnowAmount { get; set; }
 
-        [DataMember(Name = WindSpeed10mKey)]
+        [JsonPropertyName(WindSpeed10mKey)]
         public decimal WindSpeed10m { get; set; }
 
-        [DataMember(Name = WindDirectionFrom10mKey)]
+        [JsonPropertyName(WindDirectionFrom10mKey)]
         public decimal WindDirectionFrom10m { get; set; }
 
-        [DataMember(Name = WindGustSpeed10mKey)]
+        [JsonPropertyName(WindGustSpeed10mKey)]
         public decimal WindGustSpeed10m { get; set; }
 
-        [DataMember(Name = VisibilityKey)]
+        [JsonPropertyName(VisibilityKey)]
         public int Visibility { get; set; }
 
-        [DataMember(Name = MeanSeaLevelPressureKey)]
+        [JsonPropertyName(MeanSeaLevelPressureKey)]
         public int MeanSeaLevelPressure { get; set; }
 
-        [DataMember(Name = ScreenRelativeHumidityKey)]
+        [JsonPropertyName(ScreenRelativeHumidityKey)]
         public decimal ScreenRelativeHumidity { get; set; }
 
-        [DataMember(Name = FeelsLikeTemperatureKey)]
+        [JsonPropertyName(FeelsLikeTemperatureKey)]
         public decimal FeelsLikeTemperature { get; set; }
 
-        [DataMember(Name = UVIndexKey)]
+        [JsonPropertyName(UVIndexKey)]
         public int UVIndex { get; set; }
 
-        [DataMember(Name = ProbabilityOfPrecipitationKey)]
+        [JsonPropertyName(ProbabilityOfPrecipitationKey)]
         public int ProbabilityOfPrecipitation { get; set; }
 
-        [DataMember(Name = ProbabilityOfSnowKey)]
+        [JsonPropertyName(ProbabilityOfSnowKey)]
         public int ProbabilityOfSnow { get; set; }
 
-        [DataMember(Name = ProbabilityOfHeavySnowKey)]
+        [JsonPropertyName(ProbabilityOfHeavySnowKey)]
         public int ProbabilityOfHeavySnow { get; set; }
 
-        [DataMember(Name = ProbabilityOfRainKey)]
+        [JsonPropertyName(ProbabilityOfRainKey)]
         public int ProbabilityOfRain { get; set; }
 
-        [DataMember(Name = ProbabilityOfHeavyRainKey)]
+        [JsonPropertyName(ProbabilityOfHeavyRainKey)]
         public int ProbabilityOfHeavyRain { get; set; }
 
-        [DataMember(Name = ProbabilityOfHailKey)]
+        [JsonPropertyName(ProbabilityOfHailKey)]
         public int ProbabilityOfHail { get; set; }
 
-        [DataMember(Name = ProbabilityOfAtmosphericsKey)]
+        [JsonPropertyName(ProbabilityOfAtmosphericsKey)]
         public int ProbabilityOfAtmospherics { get; set; }
     }
 
@@ -355,127 +346,127 @@ namespace ImpSoft.MetOffice.DataHub
         public const string DayProbabilityOfAtmosphericsKey = "dayProbabilityOfSferics";
         public const string NightProbabilityOfAtmosphericsKey = "nightProbabilityOfSferics";
 
-        [DataMember(Name = Midday10mWindSpeedKey)]
+        [JsonPropertyName(Midday10mWindSpeedKey)]
         public decimal Midday10mWindSpeed { get; set; }
 
-        [DataMember(Name = Midnight10mWindSpeedKey)]
+        [JsonPropertyName(Midnight10mWindSpeedKey)]
         public decimal Midnight10mWindSpeed { get; set; }
 
-        [DataMember(Name = Midday10mWindDirectionKey)]
+        [JsonPropertyName(Midday10mWindDirectionKey)]
         public int Midday10mWindDirection { get; set; }
 
-        [DataMember(Name = Midnight10mWindDirectionKey)]
+        [JsonPropertyName(Midnight10mWindDirectionKey)]
         public int Midnight10mWindDirection { get; set; }
 
-        [DataMember(Name = Midday10mWindGustKey)]
+        [JsonPropertyName(Midday10mWindGustKey)]
         public decimal Midday10mWindGust { get; set; }
 
-        [DataMember(Name = Midnight10mWindGustKey)]
+        [JsonPropertyName(Midnight10mWindGustKey)]
         public decimal Midnight10mWindGust { get; set; }
 
-        [DataMember(Name = MiddayVisibilityKey)]
+        [JsonPropertyName(MiddayVisibilityKey)]
         public int MiddayVisibility { get; set; }
 
-        [DataMember(Name = MidnightVisibilityKey)]
+        [JsonPropertyName(MidnightVisibilityKey)]
         public int MidnightVisibility { get; set; }
 
-        [DataMember(Name = MiddayRelativeHumidityKey)]
+        [JsonPropertyName(MiddayRelativeHumidityKey)]
         public decimal MiddayRelativeHumidity { get; set; }
 
-        [DataMember(Name = MidnightRelativeHumidityKey)]
+        [JsonPropertyName(MidnightRelativeHumidityKey)]
         public decimal MidnightRelativeHumidity { get; set; }
 
-        [DataMember(Name = MiddayMeanSeaLevelPressureKey)]
+        [JsonPropertyName(MiddayMeanSeaLevelPressureKey)]
         public int MiddayMeanSeaLevelPressure { get; set; }
 
-        [DataMember(Name = MidnightMeanSeaLevelPressureKey)]
+        [JsonPropertyName(MidnightMeanSeaLevelPressureKey)]
         public int MidnightMeanSeaLevelPressure { get; set; }
 
-        [DataMember(Name = MaxUVIndexKey)]
+        [JsonPropertyName(MaxUVIndexKey)]
         public int MaxUVIndex { get; set; }
 
-        [DataMember(Name = DaySignificantWeatherCodeKey)]
+        [JsonPropertyName(DaySignificantWeatherCodeKey)]
         public int DaySignificantWeatherCode { get; set; }
 
-        [DataMember(Name = NightSignificantWeatherCodeKey)]
+        [JsonPropertyName(NightSignificantWeatherCodeKey)]
         public int NightSignificantWeatherCode { get; set; }
 
-        [DataMember(Name = DayMaxScreenTemperatureKey)]
+        [JsonPropertyName(DayMaxScreenTemperatureKey)]
         public decimal DayMaxScreenTemperature { get; set; }
 
-        [DataMember(Name = NightMinScreenTemperatureKey)]
+        [JsonPropertyName(NightMinScreenTemperatureKey)]
         public decimal NightMinScreenTemperature { get; set; }
 
-        [DataMember(Name = DayUpperBoundMaxTemperatureKey)]
+        [JsonPropertyName(DayUpperBoundMaxTemperatureKey)]
         public decimal DayUpperBoundMaxTemperature { get; set; }
 
-        [DataMember(Name = NightUpperBoundMinTemperatureKey)]
+        [JsonPropertyName(NightUpperBoundMinTemperatureKey)]
         public decimal NightUpperBoundMinTemperature { get; set; }
 
-        [DataMember(Name = DayLowerBoundMaxTemperatureKey)]
+        [JsonPropertyName(DayLowerBoundMaxTemperatureKey)]
         public decimal DayLowerBoundMaxTemperature { get; set; }
 
-        [DataMember(Name = NightLowerBoundMinTemperatureKey)]
+        [JsonPropertyName(NightLowerBoundMinTemperatureKey)]
         public decimal NightLowerBoundMinTemperature { get; set; }
 
-        [DataMember(Name = DayMaxFeelsLikeTemperatureKey)]
+        [JsonPropertyName(DayMaxFeelsLikeTemperatureKey)]
         public decimal DayMaxFeelsLikeTemperature { get; set; }
 
-        [DataMember(Name = NightMinFeelsLikeTemperatureKey)]
+        [JsonPropertyName(NightMinFeelsLikeTemperatureKey)]
         public decimal NightMinFeelsLikeTemperature { get; set; }
 
-        [DataMember(Name = DayUpperBoundMaxFeelsLikeTemperatureKey)]
+        [JsonPropertyName(DayUpperBoundMaxFeelsLikeTemperatureKey)]
         public decimal DayUpperBoundMaxFeelsLikeTemperature { get; set; }
 
-        [DataMember(Name = NightUpperBoundMinFeelsLikeTemperatureKey)]
+        [JsonPropertyName(NightUpperBoundMinFeelsLikeTemperatureKey)]
         public decimal NightUpperBoundMinFeelsLikeTemperature { get; set; }
 
-        [DataMember(Name = DayLowerBoundMaxFeelsLikeTemperatureKey)]
+        [JsonPropertyName(DayLowerBoundMaxFeelsLikeTemperatureKey)]
         public decimal DayLowerBoundMaxFeelsLikeTemperature { get; set; }
 
-        [DataMember(Name = NightLowerBoundMinFeelsLikeTemperatureKey)]
+        [JsonPropertyName(NightLowerBoundMinFeelsLikeTemperatureKey)]
         public decimal NightLowerBoundMinFeelsLikeTemperature { get; set; }
 
-        [DataMember(Name = DayProbabilityOfPrecipitationKey)]
+        [JsonPropertyName(DayProbabilityOfPrecipitationKey)]
         public int DayProbabilityOfPrecipitation { get; set; }
 
-        [DataMember(Name = NightProbabilityOfPrecipitationKey)]
+        [JsonPropertyName(NightProbabilityOfPrecipitationKey)]
         public int NightProbabilityOfPrecipitation { get; set; }
 
-        [DataMember(Name = DayProbabilityOfSnowKey)]
+        [JsonPropertyName(DayProbabilityOfSnowKey)]
         public int DayProbabilityOfSnow { get; set; }
 
-        [DataMember(Name = NightProbabilityOfSnowKey)]
+        [JsonPropertyName(NightProbabilityOfSnowKey)]
         public int NightProbabilityOfSnow { get; set; }
 
-        [DataMember(Name = DayProbabilityOfHeavySnowKey)]
+        [JsonPropertyName(DayProbabilityOfHeavySnowKey)]
         public int DayProbabilityOfHeavySnow { get; set; }
 
-        [DataMember(Name = NightProbabilityOfHeavySnowKey)]
+        [JsonPropertyName(NightProbabilityOfHeavySnowKey)]
         public int NightProbabilityOfHeavySnow { get; set; }
 
-        [DataMember(Name = DayProbabilityOfRainKey)]
+        [JsonPropertyName(DayProbabilityOfRainKey)]
         public int DayProbabilityOfRain { get; set; }
 
-        [DataMember(Name = NightProbabilityOfRainKey)]
+        [JsonPropertyName(NightProbabilityOfRainKey)]
         public int NightProbabilityOfRain { get; set; }
 
-        [DataMember(Name = DayProbabilityOfHeavyRainKey)]
+        [JsonPropertyName(DayProbabilityOfHeavyRainKey)]
         public int DayProbabilityOfHeavyRain { get; set; }
 
-        [DataMember(Name = NightProbabilityOfHeavyRainKey)]
+        [JsonPropertyName(NightProbabilityOfHeavyRainKey)]
         public int NightProbabilityOfHeavyRain { get; set; }
 
-        [DataMember(Name = DayProbabilityOfHailKey)]
+        [JsonPropertyName(DayProbabilityOfHailKey)]
         public int DayProbabilityOfHail { get; set; }
 
-        [DataMember(Name = NightProbabilityOfHailKey)]
+        [JsonPropertyName(NightProbabilityOfHailKey)]
         public int NightProbabilityOfHail { get; set; }
 
-        [DataMember(Name = DayProbabilityOfAtmosphericsKey)]
+        [JsonPropertyName(DayProbabilityOfAtmosphericsKey)]
         public int DayProbabilityOfAtmospherics { get; set; }
 
-        [DataMember(Name = NightProbabilityOfAtmosphericsKey)]
+        [JsonPropertyName(NightProbabilityOfAtmosphericsKey)]
         public int NightProbabilityOfAtmospherics { get; set; }
     }
 }
