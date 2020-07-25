@@ -74,13 +74,18 @@ namespace ImpSoft.MetOffice.DataHub
             AssertValidLatitude(latitude);
             AssertValidLongitude(longitude);
 
-            var uri = new Uri(@"https://api-metoffice.apiconnect.ibmcloud.com/metoffice/production/v0/forecasts/point/daily")
-                .AddQueryParam("excludeParameterMetadata", excludeParameterMetadata)
-                .AddQueryParam("includeLocationName", includeLocationName)
-                .AddQueryParam("latitude", latitude)
-                .AddQueryParam("longitude", longitude);
+            var uri = ComposeGetDailyForecastUri(latitude, longitude, includeLocationName, excludeParameterMetadata);
 
             return new SimpleForecast<DailyDataPoint>(await GetResponseAsync<Forecast<DailyDataPoint>>(uri));
+        }
+
+        internal static Uri ComposeGetDailyForecastUri(decimal latitude, decimal longitude, bool? includeLocationName, bool? excludeParameterMetadata)
+        {
+            return new Uri(@"https://api-metoffice.apiconnect.ibmcloud.com/metoffice/production/v0/forecasts/point/daily")
+                            .AddQueryParam("excludeParameterMetadata", excludeParameterMetadata)
+                            .AddQueryParam("includeLocationName", includeLocationName)
+                            .AddQueryParam("latitude", latitude)
+                            .AddQueryParam("longitude", longitude);
         }
 
         /// <summary>
@@ -96,13 +101,18 @@ namespace ImpSoft.MetOffice.DataHub
             AssertValidLatitude(latitude);
             AssertValidLongitude(longitude);
 
-            var uri = new Uri(@"https://api-metoffice.apiconnect.ibmcloud.com/metoffice/production/v0/forecasts/point/hourly")
-                .AddQueryParam("excludeParameterMetadata", excludeParameterMetadata)
-                .AddQueryParam("includeLocationName", includeLocationName)
-                .AddQueryParam("latitude", latitude)
-                .AddQueryParam("longitude", longitude);
+            var uri = ComposeGetHourlyForecastUri(latitude, longitude, includeLocationName, excludeParameterMetadata);
 
             return new SimpleForecast<HourlyDataPoint>(await GetResponseAsync<Forecast<HourlyDataPoint>>(uri));
+        }
+
+        internal static Uri ComposeGetHourlyForecastUri(decimal latitude, decimal longitude, bool? includeLocationName, bool? excludeParameterMetadata)
+        {
+            return new Uri(@"https://api-metoffice.apiconnect.ibmcloud.com/metoffice/production/v0/forecasts/point/hourly")
+                            .AddQueryParam("excludeParameterMetadata", excludeParameterMetadata)
+                            .AddQueryParam("includeLocationName", includeLocationName)
+                            .AddQueryParam("latitude", latitude)
+                            .AddQueryParam("longitude", longitude);
         }
 
         /// <summary>
@@ -118,13 +128,18 @@ namespace ImpSoft.MetOffice.DataHub
             AssertValidLatitude(latitude);
             AssertValidLongitude(longitude);
 
-            var uri = new Uri(@"https://api-metoffice.apiconnect.ibmcloud.com/metoffice/production/v0/forecasts/point/three-hourly")
-                .AddQueryParam("excludeParameterMetadata", excludeParameterMetadata)
-                .AddQueryParam("includeLocationName", includeLocationName)
-                .AddQueryParam("latitude", latitude)
-                .AddQueryParam("longitude", longitude);
+            var uri = ComposeGetThreeHourlyForecastUri(latitude, longitude, includeLocationName, excludeParameterMetadata);
 
             return new SimpleForecast<ThreeHourlyDataPoint>(await GetResponseAsync<Forecast<ThreeHourlyDataPoint>>(uri));
+        }
+
+        internal static Uri ComposeGetThreeHourlyForecastUri(decimal latitude, decimal longitude, bool? includeLocationName, bool? excludeParameterMetadata)
+        {
+            return new Uri(@"https://api-metoffice.apiconnect.ibmcloud.com/metoffice/production/v0/forecasts/point/three-hourly")
+                            .AddQueryParam("excludeParameterMetadata", excludeParameterMetadata)
+                            .AddQueryParam("includeLocationName", includeLocationName)
+                            .AddQueryParam("latitude", latitude)
+                            .AddQueryParam("longitude", longitude);
         }
     }
 }
